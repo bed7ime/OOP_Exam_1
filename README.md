@@ -1,1 +1,1 @@
-# OOP_Exam_1
+# This is an exam of Object Oriented Programming.
