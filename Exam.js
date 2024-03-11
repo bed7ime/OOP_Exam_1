@@ -95,36 +95,68 @@ class Guest extends Person {
     super(name, address, email, phone, accountType);
   }
 
-  createBooking() {
-    return this.rommBooking;
+  createBooking(reservationNumber, startDate, durationDays, room) {
+    if (isRoomAvailable()) {
+      const roomBooking = new RoomBooking(
+        reservationNumber,
+        startDate,
+        durationDays,
+        room
+      );
+      this.totalRoomBooking + 1;
+      return roomBooking;
+    } else {
+      return `Room not Available`;
+    }
   }
 
   addRoomBooking(rommBooking) {
     this.roomBookings.push(rommBooking);
   }
 
-  setTotalRoomBooking() {
-    this.totalRoomBooking = this.roomBookings.length;
-  }
+  // setTotalRoomBooking() {
+  //   this.totalRoomBooking = this.roomBookings.length;
+  // }
 
   toString() {
-    return `${super.toString()}, Total Bookings: ${this.totalRoomBooking}`;
+    let detail = "";
+    for (let i = 0; i < this.roomBookings.length; i++) {
+      detail += this.roomBookings[i].toString();
+    }
+    return `${super.toString()}, Total Bookings: ${
+      this.totalRoomBooking
+    }\n${detail}`;
   }
 }
 
 class RoomBooking {
+  room = null;
   reservationNumber = "";
   startDate = "";
   durationDays = 0;
   status = null;
-  createBy = "";
-  constructor(reservationNumber, startDate, durationDays, status, createBy) {
+  createdBy = null;
+  constructor(reservationNumber, startDate, durationDays, status, createdBy) {
     this.reservationNumber = reservationNumber;
     this.startDate = startDate;
     this.durationDays = durationDays;
     this.status = status;
-    this.createBy = createBy;
+    this.createdBy = createdBy;
   }
+
+  setRoom(room) {
+    this.room = room;
+  }
+
+  toString() {
+    return `Detail: [Reservation Number: ${
+      this.reservationNumber
+    },${this.room.toString()}, Start Date: ${this.startDate}, Duration: ${
+      this.durationDays
+    }, Status: ${this.status}, Create by: ${this.createdBy.name}]`;
+  }
+
+  createBooking(reservationNumber, startDate, durationDays, guest, room) {}
 }
 
 class Room {
@@ -293,7 +325,7 @@ const main = () => {
     "2024/03/11",
     "10",
     BookingStatus.CONFIRMED,
-    catherine
+    bob
   );
 
   // Create Room
@@ -335,10 +367,11 @@ const main = () => {
 
   // Add Room Booking
   bob.addRoomBooking(roomBooking1);
-  bob.setTotalRoomBooking();
 
   catherine.addRoomBooking(roomBooking1);
 
-  console.log(account1.toString());
+  roomBooking1.setRoom(room1);
+
+  console.log(bob.toString());
 };
 main();
