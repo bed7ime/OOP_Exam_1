@@ -166,6 +166,10 @@ class Room {
   }
 
   //   createRoom(roomNumber, style, status, roomPrice) {}
+
+  toString() {
+    return `Room:[${this.roomNumber}, ${this.style}, ${this.roomPrice} Baht, ${this.status}!!!] \n`;
+  }
 }
 
 class Hotel {
@@ -192,6 +196,10 @@ class Hotel {
   addNewRoom(room) {
     this.rooms.push(room);
     return true;
+  }
+
+  toString() {
+    return `Hotel: [${this.name} \n ${this.rooms.toString()}]`;
   }
 }
 
@@ -315,6 +323,6 @@ const main = () => {
 
   // Create Notification
 
-  console.log(room2.isRoomAvailable());
+  console.log(hotel1.toString());
 };
 main();
