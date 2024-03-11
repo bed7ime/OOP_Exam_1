@@ -61,6 +61,10 @@ class Account {
       return false;
     }
   }
+
+  toString() {
+    return `Account: [Username: ${this.username}, Password: ${this.password}, Status: ${this.status}]`;
+  }
 }
 
 class Receptionist extends Person {
@@ -147,7 +151,14 @@ class Room {
     }
   }
 
-  //   createRoom(roomNumber, style, status, roomPrice) {}
+  createRoom(roomNumber, style, status, roomPrice) {
+    const room = new Room(roomNumber, style, status, roomPrice);
+    if (room != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   toString() {
     return `Room:[${this.roomNumber}, ${this.style}, ${this.roomPrice} Baht, ${this.status}!]`;
@@ -171,9 +182,14 @@ class Hotel {
   toString() {
     let printRoom = "";
     for (let i = 0; i < this.rooms.length; i++) {
-      printRoom += "\t" + this.rooms[i] + "\n";
+      printRoom += "\t" + this.rooms[i].toString() + "\n";
     }
-    return `Hotel: [${this.name}` + "\n" + `${printRoom}` + "]";
+    return (
+      `Hotel: [Name: ${this.name}, Location: ${this.location}` +
+      "\n" +
+      `${printRoom}` +
+      "]"
+    );
   }
 }
 
@@ -323,7 +339,6 @@ const main = () => {
 
   catherine.addRoomBooking(roomBooking1);
 
-  console.log(room1.isRoomAvailable("C404"));
-  // console.log(account1);
+  console.log(account1.toString());
 };
 main();
